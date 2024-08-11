@@ -27,6 +27,11 @@ fetch(BREEDS_URL)
 select.addEventListener('change', (event) => {
   let url = `https://dog.ceo/api/breed/${event.target.value}/images/random`;
   getDoggoImg(url);
+  doggoInfo.assignMF();
+  doggoInfo.assignAge();
+  doggoInfo.assignLikes();
+  doggoInfo.assignDislikes();
+  doggoInfo.assignFunFact();
 });
 
 const img = document.querySelector('.dog-img');
@@ -719,4 +724,69 @@ const doggoInfo = {
     'Career: retired actor/consultant',
   ],
   MF: '',
+  rname: '',
+  age: '',
+  likes: '',
+  dislikes: '',
+  fact: '',
+
+  assignMF() {
+    x = Math.floor(Math.random() * 2) == 0;
+    if (x) {
+      this.MF = 'Female';
+      this.assignName(this.fNames);
+    } else {
+      this.MF = 'Male';
+      this.assignName(this.mNames);
+    }
+    document.getElementById('MF').innerHTML = `S: ${this.MF}`;
+  },
+
+  assignName(array) {
+    this.rname = array[Math.floor(Math.random() * array.length)];
+    document.getElementById('dog-name').innerHTML = `${this.rname}`;
+  },
+
+  assignAge() {
+    this.age = Math.floor(Math.random() * 16 + 1);
+    document.getElementById('age').innerHTML = `Age: ${this.age}`;
+  },
+
+  //better and cleaner shuffle - some quirk of JS (Fisher Yates Shuffle)
+  yatesShuffle(array) {
+    let m = array.length,
+      t,
+      i;
+    //while there remains elements to shuffle
+    while (m) {
+      //pick a remaining element
+      i = Math.floor(Math.random() * m--);
+      //and swap it with the current element
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+    return array;
+  },
+
+  assignLikes() {
+    this.likes = this.yatesShuffle(this.likesList).slice(0, 2); //returns 0 and 1 but not 2
+    document.getElementById(
+      'likes'
+    ).innerHTML = `Likes: ${this.likes[0]}, ${this.likes[1]}`;
+  },
+
+  assignDislikes() {
+    this.dislikes = this.yatesShuffle(this.dislikesList).slice(0, 2); //returns 0 and 1 but not 2
+    document.getElementById(
+      'dislikes'
+    ).innerHTML = `Dislikes: ${this.dislikes[0]}, ${this.dislikes[1]}`;
+  },
+
+  assignFunFact() {
+    this.fact = this.factList[Math.floor(Math.random() * this.factList.length)];
+    document.getElementById(
+      'fun-fact'
+    ).innerHTML = `Additional Info: ${this.fact}`;
+  },
 };
