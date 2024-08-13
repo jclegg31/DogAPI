@@ -25,6 +25,7 @@ fetch(BREEDS_URL)
 
 //as soon as someone clicks on a breed, you get the image back
 select.addEventListener('change', (event) => {
+  //event is like whatever we touched and what all comes along with it
   let url = `https://dog.ceo/api/breed/${event.target.value}/images/random`;
   getDoggoImg(url);
   doggoInfo.assignMF();
