@@ -56,7 +56,7 @@ const getDoggoImg = (url) => {
       return res.json(); //get JSON  message back
     })
     .then((data) => {
-      img.src = data.message; //extract message from JSON and attach to image tag as new source
+      img.src = data.message; //extract message from JSON and assign to image tag as new source
     });
 };
 
