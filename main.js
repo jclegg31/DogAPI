@@ -35,6 +35,7 @@ select.addEventListener('change', (event) => {
   doggoInfo.assignFunFact();
 });
 
+//target the dog image to change out
 const img = document.querySelector('.dog-img');
 
 // old way
@@ -48,6 +49,7 @@ const img = document.querySelector('.dog-img');
 //     });
 // }
 
+//function to get new image from api
 const getDoggoImg = (url) => {
   fetch(url) //going to the API url above
     .then((res) => {
